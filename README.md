@@ -1,7 +1,6 @@
 # vcustomers
-<<<<<<< HEAD
 
-> A Vue.js project
+> customer manager
 
 ## Build Setup
 
@@ -20,6 +19,3 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-=======
-customer manager
->>>>>>> 3fc552d165f7d0ff41c0e2a6f95a9b40619b72c8
