@@ -26,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label>公司</label>
-                <input type="text" class="form-control" placeholder="Company" v-model="customer.company">
+                <input type="text" class="form-control" placeholder="Company" v-model="customer.company.name">
             </div>
             <button type="submit" class="btn btn-primary">提交</button>
         </div>
@@ -39,7 +39,11 @@ export default {
   name: 'add',
   data () {
     return {
-        customer:{}
+        customer:{
+            company:{
+                
+            }
+        }
     }
   },
   methods:{

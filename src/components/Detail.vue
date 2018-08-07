@@ -18,11 +18,14 @@ export default {
   name: 'detail',
   data () {
     return {
-        customer:{}
+        customer:{
+          company:{            
+          }
+        }
     }
   },
   methods:{
-      fetchCustomer(id){
+    fetchCustomer(id){
       this.$http.get("http://localhost:3000/users/"+id)
       .then((response)=>{
         this.customer = response.body
