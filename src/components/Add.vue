@@ -1,5 +1,6 @@
 <template>
   <div class="add container">
+    <Alert v-show="msg" :message="msg"></Alert>
     <h1 class="page-header">添加用户</h1>
     <form @submit="addCustomer">
         <div class="well">
@@ -35,10 +36,12 @@
 </template>
 
 <script>
+import Alert from './Alert'
 export default {
   name: 'add',
   data () {
     return {
+        msg:null,
         customer:{
             company:{
                 
@@ -46,10 +49,13 @@ export default {
         }
     }
   },
+  components:{
+    Alert
+  },
   methods:{
       addCustomer(e){
         if(!this.customer.name||!this.customer.phone||!this.customer.email){
-            alert("星号标注为必填项，请继续完善信息");
+            this.msg = "星号标注为必填项，请继续完善信息";
         }else{
             this.$http.post("http://localhost:3000/users",this.customer)
             .then((response)=>{

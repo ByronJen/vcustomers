@@ -1,5 +1,6 @@
 <template>
   <div class="edit container">
+    <Alert v-show="msg" :message="msg"></Alert>
     <h1 class="page-header">编辑用户</h1>
     <form @submit="editCustomer">
         <div class="well">
@@ -28,22 +29,28 @@
                 <label>公司</label>
                 <input type="text" class="form-control" placeholder="Company" v-model="customer.company.name">
             </div>
+            <router-link to="/" class="btn btn-default">返回</router-link>
             <button type="submit" class="btn btn-primary">确认</button>
         </div>
     </form>
   </div>
 </template>
 <script>
+import Alert from './Alert'
 export default {
   name: 'edit',
   data () {
     return {
+        msg:null,
         customer:{
             company:{    
                 name:""            
             }
         }
     }
+  },
+  components:{
+    Alert
   },
   methods:{
     fetchCustomer(id){
@@ -53,11 +60,11 @@ export default {
             this.customer = response.body
         })
     },
-    editCustomer(id){
+    editCustomer(e){
         if(!this.customer.name||!this.customer.phone||!this.customer.email){
-            alert("星号标注为必填项，请继续完善信息");
+            this.msg = "星号标注为必填项，请继续完善信息";
         }else{
-            this.$http.patch("http://localhost:3000/users/"+id,this.customer)
+            this.$http.put("http://localhost:3000/users/"+this.$route.params.id,this.customer)
             .then((response)=>{
                 this.$router.push({
                     path:"/",

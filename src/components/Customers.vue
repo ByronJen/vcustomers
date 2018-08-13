@@ -1,7 +1,12 @@
 <template>
   <div class="customers container">
     <Alert v-show="msg" :message="msg"></Alert>
-    <h1 class="page-header">用户管理系统</h1>
+    <div>
+      <h1 class="page-header">用户管理系统</h1>
+      <input class="form-control" type="text" placeholder="搜索" v-model="filterInput"/>
+    </div>
+    
+    <br/>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -12,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(customer,index) in customers" :key="index">
+        <tr v-for="(customer,index) in filterBy(customers,filterInput)" :key="index">
           <td>{{customer.username}}</td>
           <td>{{customer.phone}}</td>
           <td>{{customer.email}}</td>
@@ -34,7 +39,8 @@ export default {
   data () {
     return {
       customers:[],
-      msg:""
+      msg:"",
+      filterInput:""
     }
   },
   components:{
@@ -50,8 +56,17 @@ export default {
         console.log(error)
       })
     },
-    deleteCustomer(e){
-      alert(e)
+    deleteCustomer(id){
+      this.$http.delete("http://localhost:3000/users/"+id)
+      .then((response)=>{
+        this.fetchCustomers();
+        this.msg = "用户删除成功！"
+      })
+    },
+    filterBy(customres,value){
+      return customres.filter(customre=>{
+        return customre.username.match(value)||customre.name.match(value);
+      })
     }
   },
   created() {
